@@ -1,0 +1,17 @@
+clear all;
+%cd '/scratch/heb1'; % cd to the image directory;
+[hanlidar_curvature_indexed,map] = imread('hanlidar_nad88_curvature.tif',1); % read the index image which is the first image of the file;
+topo_curvature=hanlidar_curvature_indexed; % save the index into the matrix Index;
+%topo_aspect(topo_aspect==0)=nan;
+%[nr,nc]=size(topo_curvature);
+%x=1:nc;
+%y=1:nr; y=fliplr(y);
+%[X,Y]=meshgrid(x,y);
+%goods = ~isnan(topo);
+zp_curvature = topo_curvature(goods);
+topo_curvature_vector = struct('x',topoVector_coordinates.x,'y',topoVector_coordinates.y,'z',zp_curvature);
+%topoVector_coordinates=struct('x',xp,'y',yp);
+%filedirectory='/scratch/heb1'; % save the result to this directory;
+save('?topoVector_curvature.mat','topo_curvature_vector', '-v7.3');
+%save('topoVector_coordinates.mat','','-v7.3');
+plot(topoVector_coordinates.x,topoVector_coordinates.y,'.r');
